@@ -1,4 +1,4 @@
-package tree;
+package ec.edu.espol.TDA_Arbol;
 
 import java.util.Comparator;
 import java.util.LinkedList;

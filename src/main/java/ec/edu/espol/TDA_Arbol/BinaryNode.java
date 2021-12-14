@@ -1,4 +1,4 @@
-package tree;
+package ec.edu.espol.TDA_Arbol;
 
 public class BinaryNode<T> {
     

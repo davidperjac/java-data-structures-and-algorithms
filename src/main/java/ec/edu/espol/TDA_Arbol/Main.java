@@ -1,9 +1,7 @@
-package main;
+package ec.edu.espol.TDA_Arbol;
 
 import java.util.Comparator;
 import java.util.Stack;
-import tree.BinaryNode;
-import tree.BinaryTree;
 
 public class Main {
 
