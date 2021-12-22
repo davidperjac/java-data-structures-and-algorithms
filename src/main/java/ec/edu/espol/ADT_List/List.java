@@ -1,4 +1,4 @@
-package ec.edu.espol.TDA_Lista;
+package ec.edu.espol.ADT_List;
 
 public interface List<E> extends Iterable<E> {
 

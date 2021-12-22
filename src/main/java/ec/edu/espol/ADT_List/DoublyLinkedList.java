@@ -1,7 +1,7 @@
 
-package ec.edu.espol.TDA_Lista;
+package ec.edu.espol.ADT_List;
 
-import ec.edu.espol.TDA_Lista.List;
+import ec.edu.espol.ADT_List.List;
 
 import java.util.Iterator;
 

@@ -1,5 +1,9 @@
-package huffman;
+package ec.edu.espol.HuffmanTree;
 
+/**
+ *
+ * @author davidperez
+ */
 public class HuffmanNode<T> {
 
     private T content;

@@ -1,4 +1,4 @@
-package ec.edu.espol.TDA_Arbol;
+package ec.edu.espol.BinaryTree;
 
 import java.util.Comparator;
 import java.util.Stack;

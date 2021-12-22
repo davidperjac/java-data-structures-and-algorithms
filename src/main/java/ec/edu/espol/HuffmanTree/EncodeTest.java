@@ -1,13 +1,13 @@
-package encodeTest;
+package ec.edu.espol.HuffmanTree;
 
-import huffman.HuffmanInfo;
-import huffman.HuffmanTree;
+import ec.edu.espol.HuffmanTree.HuffmanInfo;
+import ec.edu.espol.HuffmanTree.HuffmanTree;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
-public class EncodeMain {
+public class EncodeTest {
 
     public static void main(String[] args) {
         

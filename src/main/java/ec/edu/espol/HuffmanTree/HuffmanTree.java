@@ -1,11 +1,10 @@
-package huffman;
+package ec.edu.espol.HuffmanTree;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Stack;
-import huffman.HuffmanInfo;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -13,6 +12,10 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.Comparator;
 
+/**
+ *
+ * @author davidperez
+ */
 public class HuffmanTree<T> {
 
     private HuffmanNode<T> root;

@@ -1,5 +1,9 @@
-package ec.edu.espol.TDA_Arbol;
+package ec.edu.espol.BinaryTree;
 
+/**
+ *
+ * @author davidperez
+ */
 public class BinaryNode<T> {
     
     private T content;

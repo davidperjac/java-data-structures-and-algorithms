@@ -1,5 +1,9 @@
-package huffman;
+package ec.edu.espol.HuffmanTree;
 
+/**
+ *
+ * @author davidperez
+ */
 public class HuffmanInfo {
     private String text;
     private int frequency;

@@ -1,4 +1,4 @@
-package ec.edu.espol.TDA_Pila;
+package ec.edu.espol.ADT_Stack;
 
 import java.util.Stack;
 

@@ -1,8 +1,8 @@
 
-package ec.edu.espol.TDA_Pila;
+package ec.edu.espol.ADT_Stack;
 
-import static ec.edu.espol.TDA_Pila.Main.evaluarPostFix;
-import static ec.edu.espol.TDA_Pila.Main.toPostFix;
+import static ec.edu.espol.ADT_Stack.Main.evaluarPostFix;
+import static ec.edu.espol.ADT_Stack.Main.toPostFix;
 
 // 3. Probando sus métodos
 

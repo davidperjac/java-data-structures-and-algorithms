@@ -1,4 +1,4 @@
-package ec.edu.espol.TDA_Lista;
+package ec.edu.espol.ADT_List;
 
 import java.util.HashMap;
 import java.util.Map;
