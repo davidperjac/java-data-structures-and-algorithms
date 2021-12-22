@@ -104,7 +104,7 @@ public class Heap<E> {
                 if (hasRightChild(index) && cmp.compare(getRightChild(index), getLeftChild(index)) > 0) {
                     biggerChildIndex = getRightChildIndex(index);
                 }
-                if (cmp.compare(elements[index], elements[biggerChildIndex]) > 1) {
+                if (cmp.compare(elements[index], elements[biggerChildIndex]) > 0) {
                     break;
                 } else {
                     swap(index, biggerChildIndex);
@@ -115,7 +115,7 @@ public class Heap<E> {
                 if (hasRightChild(index) && cmp.compare(getRightChild(index), getLeftChild(index)) < 0) {
                     smallerChildIndex = getRightChildIndex(index);
                 }
-                if (cmp.compare(elements[index], elements[smallerChildIndex]) > 1) {
+                if (cmp.compare(elements[index], elements[smallerChildIndex]) < 0) {
                     break;
                 } else {
                     swap(index, smallerChildIndex);
@@ -166,7 +166,6 @@ public class Heap<E> {
         }
         E root = elements[0];
         swap(0, effectiveSize - 1);
-        elements[effectiveSize - 1] = null;
         effectiveSize--;
         adjustDown();
         return root;

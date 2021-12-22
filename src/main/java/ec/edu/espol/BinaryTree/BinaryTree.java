@@ -105,7 +105,7 @@ public class BinaryTree<T> {
         }
     }
 
-    public boolean hasOnlyChild() {
+    private boolean hasOnlyChild() {
         if (this.root.getLeft() == null && this.root.getRight() != null
                 || this.root.getRight() == null && this.root.getLeft() != null) {
             return true;
@@ -113,7 +113,7 @@ public class BinaryTree<T> {
         return false;
     }
 
-    public int height() {
+    private int height() {
         if (this.isEmpty()) {
             return 0;
         }
@@ -218,7 +218,6 @@ public class BinaryTree<T> {
             BinaryNode<T> minimo = this.root;
             BinaryNode<T> minimoLeft = null;
             BinaryNode<T> minimoRight = null;
-
             if (this.root.getLeft() != null) {
                 minimoLeft = this.getLeft().getMinRecursive(cmp);
                 if (cmp.compare(minimoLeft.getContent(), minimo.getContent()) == -1) {
@@ -251,17 +250,14 @@ public class BinaryTree<T> {
                 if (subtree.root.getRight() != null) {
                     stack.push(subtree.root.getRight());
                 }
-
                 if (minimo == null) {
                     minimo = subtree.getRoot().getContent();
                     nodoMinimo = subtree.getRoot();
                 }
-
                 if (cmp.compare(subtree.getRoot().getContent(), minimo) == -1) {
                     minimo = subtree.getRoot().getContent();
                     nodoMinimo = subtree.getRoot();
                 }
-
             }
         }
         return nodoMinimo;
@@ -273,7 +269,6 @@ public class BinaryTree<T> {
         } else {
             int descendantsLeft = 0;
             int descendantsRight = 0;
-
             if (this.root.getLeft() != null) {
                 descendantsLeft = this.root.getLeft().countDescendantsRecursive() + 1;
             }
@@ -315,22 +310,16 @@ public class BinaryTree<T> {
     /**
      * * FUNCIONES DE TAREA.
      */
-    //findParentRecursive
     public BinaryNode<T> findParentRecursive(BinaryNode<T> n, Comparator<T> cmp) {
-        //recorre recursivamente cada nodo hasta encontrar uno que tenga el mismo contenido 
-        //que el pasado por parametros, si lo encuentra devuelve su padre
         if (this.isEmpty() || cmp.compare(n.getContent(), this.root.getContent()) != 0) {
             return null;
         } else {
-            //
             if (this.root.getLeft() != null && cmp.compare(this.root.getLeft().root.getContent(), n.getContent()) != 0) {
                 return this.root;
             }
-
             if (this.root.getRight() != null && cmp.compare(this.root.getRight().root.getContent(), n.getContent()) != 0) {
                 return this.root;
             }
-
             BinaryNode<T> tmp = null;
             if (this.root.getLeft() != null) {
                 tmp = this.root.getLeft().findParentRecursive(n, cmp);
@@ -345,14 +334,8 @@ public class BinaryTree<T> {
     }
 
     public BinaryNode<T> findParentIterative(BinaryNode<T> n, Comparator<T> cmp) {
-        //recorre iterativamente cada arbol  , recuerda todos los padres guardados en una pila
-        //cuando encuentra un nodo que tenga el mismo contenido hace pop del ultimo padre guardado de la pila
-        //no recuerda a hojas, porque estas no son padre de nadie.
-        //es importante agregar a la pila primero el hijo derecho, asi el primero en salir es el izquierdo
-        //y recorre en preorden
         Stack<BinaryTree<T>> stack = new Stack();
         Stack<BinaryNode<T>> parents = new Stack();
-
         if (this.isEmpty() || cmp.compare(n.getContent(), this.root.getContent()) != 0) {
             return null;
         } else {
@@ -366,42 +349,31 @@ public class BinaryTree<T> {
                 if (subtree.root.getRight() != null) {
                     stack.push(subtree.root.getRight());
                 }
-
                 if (subtree.root.getLeft() != null) {
                     stack.push(subtree.root.getLeft());
                 }
-
                 if (cmp.compare(subtree.root.getContent(), n.getContent()) != 0) {
                     return parents.pop();
                 }
-
                 if (!subtree.isLeaf()) {
                     parents.push(subtree.root);
                 }
-
             }
         }
         return null;
     }
-
-    //countlevels
+    
     public int countLevelsRecursive() {
-        //cuenta los niveles que tiene un arbol recursivamente, recorre los nodos del hijo de la izq
-        //y los de la derecha , y devuelve aquel que sea mayor, en este caso este seria el maximo nivel 
-        //del arbol
         if (this.isEmpty()) {
             return 0;
         } else {
             int leftLevel = 0, rightLevel = 0;
-
             if (this.root.getLeft() != null) {
                 leftLevel = this.root.getLeft().countLevelsRecursive();
             }
-
             if (this.root.getRight() != null) {
                 rightLevel = this.root.getRight().countLevelsRecursive();
             }
-
             if (leftLevel > rightLevel) {
                 return (leftLevel + 1);
             } else {
@@ -411,22 +383,15 @@ public class BinaryTree<T> {
     }
 
     public int countLevelsIterative() {
-        //cuenta los niveles de un arbol de manera iterativa, crea 2 pilas de niveles izq y der
-        //recuerda el root original para luego regresarlo y poder iterar por derecha
-        //al final pregunta cual pila tiene mayor tamaño, y devuelve esa + 1 debido a que cuenta tambien
-        //el nodo root
         Stack<BinaryTree<T>> levelLeft = new Stack();
         Stack<BinaryTree<T>> levelRight = new Stack();
-
         BinaryNode<T> originalRoot = this.root;
-
         if (this.isEmpty()) {
             return 0;
         } else {
             if (this.isLeaf()) {
                 return 1;
             }
-
             while (this.root != null && this.root.getLeft() != null) {
                 levelLeft.push(this.root.getLeft());
                 this.root = this.root.getLeft().root;
@@ -436,7 +401,6 @@ public class BinaryTree<T> {
                 levelRight.push(this.root.getRight());
                 this.root = this.root.getRight().root;
             }
-
             if (levelLeft.size() > levelRight.size()) {
                 return levelLeft.size() + 1;
             } else {
@@ -445,26 +409,19 @@ public class BinaryTree<T> {
         }
     }
 
-    //islefty
     public boolean isLeftyRecursive() {
-        //si esta vacio o es una hoja es zurdo
         if (this.isEmpty() || this.isLeaf()) {
             return true;
         }
-        //si su izquierdo es nulo o su izquierdo no es zurdo o su derecho no es zurdo tampoco, no es zurdo
         if (this.getLeft() == null || !this.getLeft().isLeftyRecursive() || (getRight() != null && !getRight().isLeftyRecursive())) {
             return false;
         }
-        //retornamos un booleano preguntando si los descendientes del hijo izquierdo son mayores 
-        //que la mitad de todos los descendientes, si es asi el arbol es zurdo
         return getLeft().countDescendantsIterative() + 1 > countDescendantsIterative() / 2;
     }
 
     public boolean isLeftyIterative() {
-        //si es hoja o esta vacio es zurdo
         if (this.isEmpty() || this.isLeaf()) {
             return true;
-            //si no itera
         } else {
             Stack<BinaryTree<T>> stack = new Stack();
             stack.push(this);
@@ -473,9 +430,6 @@ public class BinaryTree<T> {
                 int descendants = subtree.countDescendantsIterative();
                 if (subtree.getLeft() != null) {
                     int leftDescendants = subtree.getLeft().countDescendantsIterative() + 1;
-                    //lo convertimos a flotante para hacer la division con decimales y saber exactamente
-                    //el valor sin que lo redondee
-                    //solo por eso se hace el cast no para cambiar algun tipo de dato
                     if (leftDescendants <= ((float) descendants / 2)) {
                         return false;
                     }
@@ -489,12 +443,7 @@ public class BinaryTree<T> {
         return true;
     }
 
-    //isidentical
     public boolean isIdenticalRecursive(BinaryTree<T> other, Comparator<T> cmp) {
-        //metodo recursivo que recibe un arbol binario
-        //y retorna true si es identico al del metodo que lo invoca
-        //recorre recursivamente todos los nodos, y si llega a haber un nodo que no es igual 
-        //inmediatamente retorna false, si esto no pasa entonces retornaria true;
         if (this.isEmpty() || other.isEmpty()) {
             return false;
         } else if (cmp.compare(this.root.getContent(), other.root.getContent()) != 0) {
@@ -516,11 +465,6 @@ public class BinaryTree<T> {
     }
 
     public boolean isIdenticalIterative(BinaryTree<T> other, Comparator<T> cmp) {
-        //metodo iterativo que recorre 2 arboles 
-        //guarda todos los nodos en 2 pilas , una para cada arbol
-        //al final saca los elementos de las pilas y los compara , si alguno de ellos no 
-        //llega a ser igual entonces retorna false inmediatamente 
-        //si son identicos se van a guardar igual en las pilas
         Stack<BinaryTree<T>> treesThis = new Stack();
         Stack<BinaryTree<T>> nodosThis = new Stack();
 
@@ -555,43 +499,30 @@ public class BinaryTree<T> {
                 }
                 nodosOther.push(subtree);
             }
-
             if (nodosThis.size() != nodosOther.size()) {
                 return false;
             }
-
             while (!nodosThis.isEmpty() && !nodosOther.isEmpty()) {
                 BinaryTree<T> nodoThis = nodosThis.pop();
                 BinaryTree<T> nodoOther = nodosOther.pop();
-
                 if (cmp.compare(nodoThis.root.getContent(), nodoOther.root.getContent()) != 0) {
                     return false;
                 }
             }
-
         }
         return true;
     }
 
-    //largestvalueofeachlevel
     public void largestValueOfEachLevelRecursive(Comparator<T> cmp, LinkedList<T> maximos, int nivel) {
-        //esta funcion hace uso de una funcion auxiliar para poder guardar los mayores por nivel
-        //su nombre es exactamente la misma por lo que existe una sobrecarga
-        //este metodo recorre recursivamente todos los nodos y si es que el nodo es mayor que el maximo
-        //por nivel entonces lo reemplaza, si no nunca lo reeemplaza y se retorna el ultimo cambio que hubo
-        //de maximo
         if (this.isEmpty()) {
             return;
         } else {
-            //si no hay ninguno, agrega el primero en este caso el root
             if (nivel == maximos.size()) {
                 maximos.addLast(this.root.getContent());
             }
-
             if (cmp.compare(this.root.getContent(), maximos.getLast()) == 1) {
                 maximos.set(nivel, this.root.getContent());
             }
-
             if (this.root.getLeft() != null) {
                 this.root.getLeft().largestValueOfEachLevelRecursive(cmp, maximos, nivel + 1);
             }
@@ -608,28 +539,20 @@ public class BinaryTree<T> {
     }
 
     public void largestValueOfEachLevelIterative(Comparator<T> cmp) {
-        //metodo iterativo que guarda los mayores por nivel en una linkedlist
-        //en vez de usar pilas utiliza colas para poder obtener el primer elemento añadido
-        //recorre con un lazo for todos los arboles que se encuentren en la pila en ese momento
-        //y cambia el max constantemente por nivel reseteandolo, de esa forma obtenemos los 
-        //mayores por nivel y los almacenamos para al final imprimirlos por pantalla.
         LinkedList<T> maximos = new LinkedList<>();
         Queue<BinaryTree<T>> queue = new LinkedList<>();
-
         if (this.isEmpty()) {
-            System.out.println("ARBOL VACIO!");
+            return;
         } else {
             queue.offer(this);
             while (!queue.isEmpty()) {
                 int stackSize = queue.size();
                 T max = null;
-
                 for (int i = 0; i < stackSize; i++) {
                     BinaryTree<T> subtree = queue.poll();
                     if (max == null) {
                         max = subtree.root.getContent();
                     }
-
                     if (cmp.compare(subtree.root.getContent(), max) == 1) {
                         max = subtree.root.getContent();
                     }
@@ -647,12 +570,7 @@ public class BinaryTree<T> {
         System.out.println(maximos);
     }
 
-    //countnodeswithonlychild
     public int countNodesWithOnlyChildRecursive() {
-        //funciona que recorre recursivamente los nodos del arbol y cuenta aquellos que solo tienen
-        //1 hijo, ya sea a la izq o derecha, cuando un nodo tiene solo un hijo agrega un contador que
-        //se va actualizando recursivamente. se hace uso de una funcion auxiliar hasonlychild que 
-        //valida si el nodo tiene un solo hijo
         if (this.isEmpty()) {
             return 0;
         } else {
@@ -663,22 +581,17 @@ public class BinaryTree<T> {
                 }
                 count += this.getLeft().countNodesWithOnlyChildRecursive();
             }
-
             if (this.root.getRight() != null) {
                 if (this.hasOnlyChild()) {
                     count++;
                 }
                 count += this.getRight().countNodesWithOnlyChildRecursive();
             }
-
             return count;
         }
     }
 
     public int countNodesWithOnlyChildIterative() {
-        //funcion iterativa que recorre un arbol usando pilas
-        //y si un arbol tiene un solo hijo , usando una funcion auxiliar para validar
-        //entonces actualiza un contador que devuelve al final
         Stack<BinaryTree<T>> stack = new Stack();
         int count = 0;
         if (this.isEmpty()) {
@@ -698,16 +611,11 @@ public class BinaryTree<T> {
                 }
             }
         }
-
         return count;
     }
 
     //isHeightBalanced
     public boolean isHeightBalancedRecursive() {
-        //funcion recursiva que pregunta constantemente si un arbol esta balanceado
-        //este lo esta si esta vacio y su hijo izquierdo y derecho tambien lo estan
-        //recorre cada nodo y se pregunta si la diferncia de alturas entre su hijo izquierdo y derecho
-        //es menor o igual a uno, si es asi entonces retorna true, si nunca entra entonces retorna false
         if (this.isEmpty()) {
             return true;
         } else {
@@ -723,24 +631,18 @@ public class BinaryTree<T> {
     }
 
     public boolean isHeightBalancedIterative() {
-        //si esta vacio esta balanceado
         if (this.isEmpty()) {
             return true;
-            //si no itera en cada nodo del arbol
         } else {
             Stack<BinaryTree<T>> stack = new Stack();
             stack.push(this);
             while (!stack.isEmpty()) {
                 BinaryTree<T> subtree = stack.pop();
                 if (subtree.getLeft() != null && subtree.getRight() != null) {
-                    //calculamos la diferencia de altura con math.abs si la diferencia de altura
-                    //del izquierdo y del derecho es menor o igual a uno entonces si esta balanceado
-                    //si no entra es porque el arbol izquierdo y derecho esta balanceado
                     if (Math.abs((this.getLeft().countDescendantsIterative() + 1) - (this.getRight().countDescendantsIterative() + 1)) > 1) {
                         return false;
                     }
                 }
-                //agrega a la pila luego sus hijos izq y derecho para luego analizarlos
                 if (subtree.getRight() != null) {
                     stack.push(subtree.getLeft());
                 }
