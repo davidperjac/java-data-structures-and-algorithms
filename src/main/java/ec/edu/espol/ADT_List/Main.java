@@ -14,7 +14,6 @@ public class Main {
         // PRACTICA EXAMEN
 
         // 2019 - 1T -1P
-
         // TEMA 4
         //        
         //        Duo<Integer> duo = new Duo();
@@ -50,12 +49,9 @@ public class Main {
         //        
         //        System.out.println(duo.c1);
         //        System.out.println(duo.c2);
-
-    // EXAMEN 1P
-
-    //4
-        
-    /*
+        // EXAMEN 1P
+        //4
+        /*
     public Map<LinkedList<T>, Integer numUnicos> contarDistintosEnSubListas(int k) {
 
         HashMap<LinkedList<T>, Integer numUnicos> salida = new HashMap<>();
@@ -153,6 +149,6 @@ public class Main {
     }
 
     //8
-    */
-}
+         */
+    }
 }
