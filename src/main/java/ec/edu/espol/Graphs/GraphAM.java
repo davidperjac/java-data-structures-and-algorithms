@@ -2,14 +2,15 @@ package ec.edu.espol.Graphs;
 
 import java.util.Comparator;
 
-public class GraphAM<V> {
+public class GraphAM<V,E> {
 
     private V[] vertices;
     private int capacity = 20;
     private int effectiveSize;
     private int[][] adyacencyMatrix;
-    private boolean isDirected;
-    private Comparator<V> cmp;
+    private  E[][] dataMatrix;
+    private final boolean isDirected;
+    private final Comparator<V> cmp;
 
     public GraphAM(Comparator<V> cmp, boolean isDirected) {
         this.isDirected = isDirected;
@@ -47,16 +48,17 @@ public class GraphAM<V> {
         return false;
     }
 
-    public boolean connect(V vert1, V vert2) {
-        boolean checkNull = vert1 != null && vert2 != null;
-        boolean checkExistance = existsVertexWithContent(vert1) && existsVertexWithContent(vert2);
+    public boolean connect(V content1, V content2) {
+        boolean checkNull = content1 != null && content2 != null;
+        boolean checkExistance = existsVertexWithContent(content1) && existsVertexWithContent(content2);
         if (checkNull && checkExistance) {
-            int idxVert1 = getIndex(vert1);
-            int idxVert2 = getIndex(vert2);
+            int idxVert1 = getIndex(content1);
+            int idxVert2 = getIndex(content2);
             adyacencyMatrix[idxVert1][idxVert2] = 1;
             if (!isDirected) {
                 adyacencyMatrix[idxVert2][idxVert1] = 1;
             }
+            return true;
         }
         return false;
     }
@@ -106,7 +108,7 @@ public class GraphAM<V> {
     }
 
     private void deleteVertex(V content) {
-        for (int i = 0; i < vertices.length; i++) {
+        for (int i = 0; i < effectiveSize; i++) {
             if (vertices[i] != null) {
                 if (cmp.compare(vertices[i], content) == 0) {
                     vertices[i] = null;
