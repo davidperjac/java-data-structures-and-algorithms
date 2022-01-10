@@ -1,8 +1,9 @@
 package ec.edu.espol.Graphs;
 
-import ec.edu.espol.ADT_List.List;
+
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -39,8 +40,8 @@ public class GraphAL<V, E> {
         return true;
     }
     
-    public LinkedList<Vertex<V,E>> breathFirstSearch(Vertex<V,E> start) {
-        LinkedList<Vertex<V,E>> output =  new LinkedList<>();
+    public List<Vertex<V,E>> breathFirstSearch(Vertex<V,E> start) {
+        List<Vertex<V,E>> output =  new LinkedList<>();
         Queue <Vertex<V,E>> q = new LinkedList<>();
         q.add(start);
         start.setVisited(true);
@@ -59,8 +60,8 @@ public class GraphAL<V, E> {
         return output;
     }
     
-    public LinkedList<Vertex<V,E>> depthFirstSearch(Vertex<V,E> start) {
-        LinkedList<Vertex<V,E>> output =  new LinkedList<>();
+    public List<Vertex<V,E>> depthFirstSearch(Vertex<V,E> start) {
+        List<Vertex<V,E>> output =  new LinkedList<>();
         Stack <Vertex<V,E>> s = new Stack<>();
         s.push(start);
         start.setVisited(true);
@@ -78,7 +79,17 @@ public class GraphAL<V, E> {
         }
         return output;
     }
+    
+    public List<List<Vertex<V,E>>> getConnectedComponents () {
+        List<List<Vertex<V,E>>> result = new LinkedList<>();
 
+        return result;
+    }    
+    
+    private void invertDirections () {
+        
+    }
+    
     private boolean validateExistance(V content1, V content2) {
         boolean checkNull = content1 != null && content2 != null;
         boolean checkExistance = existsVertexWithContent(content1) && existsVertexWithContent(content2);
