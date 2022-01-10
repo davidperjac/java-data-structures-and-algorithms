@@ -3,6 +3,8 @@ package ec.edu.espol.Graphs;
 import ec.edu.espol.ADT_List.List;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 
 public class GraphAL<V, E> {
 
@@ -35,6 +37,46 @@ public class GraphAL<V, E> {
             vert2.getEdges().add(notDirectedEdge);
         }
         return true;
+    }
+    
+    public LinkedList<Vertex<V,E>> breathFirstSearch(Vertex<V,E> start) {
+        LinkedList<Vertex<V,E>> output =  new LinkedList<>();
+        Queue <Vertex<V,E>> q = new LinkedList<>();
+        q.add(start);
+        start.setVisited(true);
+        while (!q.isEmpty()) {
+            Vertex<V,E> v = q.remove();
+            output.add(v);
+            LinkedList<Edge<E,V>> edges = v.getEdges();
+            for (Edge<E,V> e : edges) {
+                Vertex<V,E> target = e.getTarget();
+                if (!target.isVisited()) {
+                    target.setVisited(true);
+                    q.add(target);
+                }
+            }
+        }
+        return output;
+    }
+    
+    public LinkedList<Vertex<V,E>> depthFirstSearch(Vertex<V,E> start) {
+        LinkedList<Vertex<V,E>> output =  new LinkedList<>();
+        Stack <Vertex<V,E>> s = new Stack<>();
+        s.push(start);
+        start.setVisited(true);
+        while (!s.isEmpty()) {
+            Vertex<V,E> v = s.pop();
+            output.add(v);
+            LinkedList<Edge<E,V>> edges = v.getEdges();
+            for (Edge<E,V> e : edges) {
+                Vertex<V,E> target = e.getTarget();
+                if (!target.isVisited()) {
+                    target.setVisited(true);
+                    s.push(target);
+                }
+            }
+        }
+        return output;
     }
 
     private boolean validateExistance(V content1, V content2) {

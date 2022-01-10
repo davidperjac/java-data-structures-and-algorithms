@@ -7,6 +7,7 @@ import java.util.LinkedList;
 public class Vertex<V,E> {
     private V content;
     private LinkedList<Edge<E,V>> edges;
+    private boolean visited;
 
     public Vertex(V content) {
         this.content = content;
@@ -28,7 +29,13 @@ public class Vertex<V,E> {
     public void setEdges(LinkedList<Edge<E, V>> edges) {
         this.edges = edges;
     }
-    
-    
-    
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+        
 }
