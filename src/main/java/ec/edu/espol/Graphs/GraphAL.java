@@ -1,6 +1,5 @@
 package ec.edu.espol.Graphs;
 
-
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +27,9 @@ public class GraphAL<V, E> {
     }
 
     public boolean connect(V content1, V content2, E data, int weight) {
-        if (!validateExistance(content1,content2)) return false;
+        if (!validateExistance(content1, content2)) {
+            return false;
+        }
         Vertex vert1 = getVertexByContent(content1);
         Vertex vert2 = getVertexByContent(content2);
         Edge<E, V> newEdge = new Edge(vert1, vert2, data, weight);
@@ -39,18 +40,18 @@ public class GraphAL<V, E> {
         }
         return true;
     }
-    
-    public List<Vertex<V,E>> breathFirstSearch(Vertex<V,E> start) {
-        List<Vertex<V,E>> output =  new LinkedList<>();
-        Queue <Vertex<V,E>> q = new LinkedList<>();
+
+    public List<Vertex<V, E>> breathFirstSearch(Vertex<V, E> start) {
+        List<Vertex<V, E>> output = new LinkedList<>();
+        Queue<Vertex<V, E>> q = new LinkedList<>();
         q.add(start);
         start.setVisited(true);
         while (!q.isEmpty()) {
-            Vertex<V,E> v = q.remove();
+            Vertex<V, E> v = q.remove();
             output.add(v);
-            LinkedList<Edge<E,V>> edges = v.getEdges();
-            for (Edge<E,V> e : edges) {
-                Vertex<V,E> target = e.getTarget();
+            LinkedList<Edge<E, V>> edges = v.getEdges();
+            for (Edge<E, V> e : edges) {
+                Vertex<V, E> target = e.getTarget();
                 if (!target.isVisited()) {
                     target.setVisited(true);
                     q.add(target);
@@ -59,18 +60,18 @@ public class GraphAL<V, E> {
         }
         return output;
     }
-    
-    public List<Vertex<V,E>> depthFirstSearch(Vertex<V,E> start) {
-        List<Vertex<V,E>> output =  new LinkedList<>();
-        Stack <Vertex<V,E>> s = new Stack<>();
+
+    public List<Vertex<V, E>> depthFirstSearch(Vertex<V, E> start) {
+        List<Vertex<V, E>> output = new LinkedList<>();
+        Stack<Vertex<V, E>> s = new Stack<>();
         s.push(start);
         start.setVisited(true);
         while (!s.isEmpty()) {
-            Vertex<V,E> v = s.pop();
+            Vertex<V, E> v = s.pop();
             output.add(v);
-            LinkedList<Edge<E,V>> edges = v.getEdges();
-            for (Edge<E,V> e : edges) {
-                Vertex<V,E> target = e.getTarget();
+            LinkedList<Edge<E, V>> edges = v.getEdges();
+            for (Edge<E, V> e : edges) {
+                Vertex<V, E> target = e.getTarget();
                 if (!target.isVisited()) {
                     target.setVisited(true);
                     s.push(target);
@@ -79,22 +80,28 @@ public class GraphAL<V, E> {
         }
         return output;
     }
-    
-    public List<List<Vertex<V,E>>> getConnectedComponents () {
-        List<List<Vertex<V,E>>> result = new LinkedList<>();
+
+    public List<List<Vertex<V, E>>> getConnectedComponents() {
+        List<List<Vertex<V, E>>> result = new LinkedList<>();
 
         return result;
-    }    
-    
-    private void invertDirections () {
-        
+    }
+
+    private void invertDirections() {
+
     }
     
+    private void resetGraph() {
+        
+    }
+
     private boolean validateExistance(V content1, V content2) {
         boolean checkNull = content1 != null && content2 != null;
         boolean checkExistance = existsVertexWithContent(content1) && existsVertexWithContent(content2);
-        
-        if (checkNull && checkExistance) return true;
+
+        if (checkNull && checkExistance) {
+            return true;
+        }
         return false;
     }
 
