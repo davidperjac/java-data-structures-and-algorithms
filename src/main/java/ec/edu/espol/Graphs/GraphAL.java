@@ -41,11 +41,14 @@ public class GraphAL<V, E> {
         return true;
     }
 
-    public List<Vertex<V, E>> breathFirstSearch(Vertex<V, E> start) {
+    private List<Vertex<V, E>> breathFirstSearch(V start, boolean isConnectedSearch) {
         List<Vertex<V, E>> output = new LinkedList<>();
         Queue<Vertex<V, E>> q = new LinkedList<>();
-        q.add(start);
-        start.setVisited(true);
+        
+        Vertex<V, E> vertex = getVertexByContent(start);
+        q.add(vertex);
+        vertex.setVisited(true);
+        
         while (!q.isEmpty()) {
             Vertex<V, E> v = q.remove();
             output.add(v);
@@ -58,14 +61,27 @@ public class GraphAL<V, E> {
                 }
             }
         }
+        if (!isConnectedSearch) {
+            for (Vertex<V, E> v : output) {
+                v.setVisited(false);
+            }
+        }
+
         return output;
     }
 
-    public List<Vertex<V, E>> depthFirstSearch(Vertex<V, E> start) {
+    public void printBFS(V start) {
+        System.out.println(breathFirstSearch(start, false));
+    }
+
+    private List<Vertex<V, E>> depthFirstSearch(V start, boolean isConnectedSearch) {
         List<Vertex<V, E>> output = new LinkedList<>();
         Stack<Vertex<V, E>> s = new Stack<>();
-        s.push(start);
-        start.setVisited(true);
+        
+        Vertex<V, E> vertex = getVertexByContent(start);
+        s.push(vertex);
+        vertex.setVisited(true);
+        
         while (!s.isEmpty()) {
             Vertex<V, E> v = s.pop();
             output.add(v);
@@ -78,21 +94,55 @@ public class GraphAL<V, E> {
                 }
             }
         }
+        if (!isConnectedSearch) {
+            for (Vertex<V, E> v : output) {
+                v.setVisited(false);
+            }
+        }
         return output;
     }
 
-    public List<List<Vertex<V, E>>> getConnectedComponents() {
+    public void printDFS(V start) {
+        System.out.println(depthFirstSearch(start, false));
+    }
+
+    private List<List<Vertex<V, E>>> getConnectedComponents() {
         List<List<Vertex<V, E>>> result = new LinkedList<>();
 
+        List<Vertex<V, E>> recorrido;
+        while (true) {
+
+            Vertex<V, E> vertexNoVisitado = searchVisitedVertex();
+
+            if (vertexNoVisitado == null) {
+                break;
+            }
+
+            recorrido = this.breathFirstSearch(vertexNoVisitado.getContent(), true);
+            result.add(recorrido);
+        }
         return result;
+    }
+
+    public void printConnectedComponents() {
+        System.out.println(getConnectedComponents());
+    }
+
+    public Vertex<V, E> searchVisitedVertex() {
+        for (Vertex<V, E> v : vertices) {
+            if (!v.isVisited()) {
+                return v;
+            }
+        }
+        return null;
     }
 
     private void invertDirections() {
 
     }
-    
+
     private void resetGraph() {
-        
+
     }
 
     private boolean validateExistance(V content1, V content2) {
