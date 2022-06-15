@@ -1,5 +1,6 @@
 package ec.edu.espol.BinaryTree;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -362,7 +363,7 @@ public class BinaryTree<T> {
         }
         return null;
     }
-    
+
     public int countLevelsRecursive() {
         if (this.isEmpty()) {
             return 0;
@@ -513,7 +514,7 @@ public class BinaryTree<T> {
         return true;
     }
 
-    public void largestValueOfEachLevelRecursive(Comparator<T> cmp, LinkedList<T> maximos, int nivel) {
+    private void largestValueOfEachLevelRecursive(Comparator<T> cmp, LinkedList<T> maximos, int nivel) {
         if (this.isEmpty()) {
             return;
         } else {
@@ -643,7 +644,7 @@ public class BinaryTree<T> {
                         return false;
                     }
                 }
-                if (subtree.getRight() != null) {
+                if (subtree.getLeft() != null) {
                     stack.push(subtree.getLeft());
                 }
                 if (subtree.getRight() != null) {
@@ -654,9 +655,192 @@ public class BinaryTree<T> {
         return true;
     }
 
+    //EXAMEN 2021 1T 2P 
+    //TEMA 2
+    public void isBalanced() {
+        boolean balanced = true;
+        LinkedList<T> debalancedNodes = new LinkedList<>();
+        if (isEmpty() || this.isLeaf()) {
+            System.out.println("Arbol se encuentra balanceado");
+        } else {
+            Stack<BinaryTree<T>> stack = new Stack();
+            stack.push(this);
+            while (!stack.isEmpty()) {
+                BinaryTree<T> subtree = stack.pop();
+
+                if (noNulls(subtree)) {
+                    if ((subtree.getLeft().countLevelsRecursive()) - (subtree.getRight().countLevelsRecursive()) > 1
+                            || (subtree.getLeft().countLevelsRecursive()) - (subtree.getRight().countLevelsRecursive()) < -1) {
+                        balanced = false;
+                        debalancedNodes.add(subtree.root.getContent());
+                    }
+                } else if (leftNull(subtree)) {
+                    if (subtree.getRight().countLevelsRecursive() + 1 > 2) {
+                        balanced = false;
+                        debalancedNodes.add(subtree.root.getContent());
+                    }
+                } else if (rightNull(subtree)) {
+                    if (subtree.getLeft().countLevelsRecursive() + 1 > 2) {
+                        balanced = false;
+                        debalancedNodes.add(subtree.root.getContent());
+                    }
+                }
+
+                if (subtree.getRight() != null) {
+                    stack.push(subtree.getRight());
+                }
+                if (subtree.getLeft() != null) {
+                    stack.push(subtree.getLeft());
+                }
+            }
+        }
+        printDebalancedNodes(balanced, debalancedNodes);
+    }
+
+    private void setDebalancedConditions(boolean balanced, LinkedList<T> debalancedNodes, BinaryTree<T> subtree) {
+        balanced = false;
+        debalancedNodes.add(subtree.root.getContent());
+    }
+
+    private boolean rightNull(BinaryTree<T> subtree) {
+        return subtree.getRight() == null && subtree.getLeft() != null;
+    }
+
+    private boolean leftNull(BinaryTree<T> subtree) {
+        return subtree.getLeft() == null && subtree.getRight() != null;
+    }
+
+    private boolean noNulls(BinaryTree<T> subtree) {
+        return subtree.getLeft() != null && subtree.getRight() != null;
+    }
+
+    private void printDebalancedNodes(boolean balanced, LinkedList<T> debalancedNodes) {
+        if (balanced) {
+            System.out.println("Arbol se encuentra balanceado");
+        } else {
+            String message = "Arbol se encuentra desbalanceado debido a los nodos : ";
+            for (T content : debalancedNodes) {
+                if (content.equals(debalancedNodes.get(debalancedNodes.size() - 1))) {
+                    message += content + ".";
+                } else {
+                    message += content + ", ";
+                }
+            }
+            System.out.println(message);
+        }
+    }
+
+    //EXAMEN 2020 2T 2P 
+    //TEMA 2
+    public static BinaryTree<Integer> createHeapTree(ArrayList<Integer> list) {
+
+        BinaryTree<Integer> tree = new BinaryTree<>();
+        int i = 0;
+        return createHeapTree(list, i, tree);
+    }
+
+    private static BinaryTree<Integer> createHeapTree(ArrayList<Integer> list, int i, BinaryTree<Integer> tree) {
+        if (i < list.size()) {
+            BinaryTree<Integer> temp = new BinaryTree(list.get(i));
+            tree = temp;
+            if (2 * i + 1 < list.size()) {
+                if (list.get(2 * i + 1) == null) {
+                    tree.setLeft(null);
+                } else {
+                    tree.setLeft(createHeapTree(list, 2 * i + 1, tree));
+                }
+            }
+            if (2 * i + 2 < list.size()) {
+                if (list.get(2 * i + 2) == null) {
+                    tree.setRight(null);
+                } else {
+                    tree.setRight(createHeapTree(list, 2 * i + 2, tree));
+                }
+            }
+        }
+        return tree;
+    }
+
+    //TEMA 3 
+    public BinaryTree<Integer> findIntersection(BinaryTree<T> root) {
+        return findIntersection(this, root);
+    }
+
+    private BinaryTree<Integer> findIntersection(BinaryTree<T> root1, BinaryTree<T> root2) {
+        if (root == null) {
+            return null;
+        }
+
+//        Integer sum = (Integer) (root1.getRoot().getContent()) + (Integer) (root2.getRoot().getContent());
+
+        BinaryTree<Integer> newNode = new BinaryTree<>(3);
+
+        if (root1.getLeft() != null && root2.getLeft() != null) {
+            newNode.getRoot().setLeft(findIntersection(root1.getLeft(), root2.getLeft()));
+        }
+        if (root1.getRight() != null && root2.getRight() != null) {
+            newNode.getRoot().setRight(findIntersection(root1.getRight(), root2.getRight()));
+        }
+        return newNode;
+    }
+
+    //EXAMEN FINAL 2T 2019
+    //TEMA 3 
+    private void maxLevel(Comparator<T> cmp , LinkedList<T> maximos, int nivel) {
+        if (this.isEmpty()) {
+            return;
+        } else {
+            if (nivel == maximos.size()) {
+                maximos.addLast(this.root.getContent());
+            }
+            if (cmp.compare(this.root.getContent(), maximos.getLast()) == 1) {
+                maximos.set(nivel, this.root.getContent());
+            }
+            if (this.root.getLeft() != null) {
+                this.root.getLeft().maxLevel(cmp, maximos, nivel + 1);
+            }
+            if (this.root.getRight() != null) {
+                this.root.getRight().maxLevel(cmp, maximos, nivel + 1);
+            }
+        }
+    }
+
+    public T maxLevel(int nivel, Comparator<T> cmp) {
+        LinkedList<T> maximos = new LinkedList<>();
+        this.maxLevel(cmp, maximos, 0);
+        return maximos.get(nivel);
+    }
+
     @Override
     public String toString() {
         return "BinaryTree{" + "root=" + root + '}';
     }
 
 }
+
+/*
+    public void largestValueOfEachLevelRecursive(Comparator<T> cmp, LinkedList<T> maximos, int nivel) {
+        if (this.isEmpty()) {
+            return;
+        } else {
+            if (nivel == maximos.size()) {
+                maximos.addLast(this.root.getContent());
+            }
+            if (cmp.compare(this.root.getContent(), maximos.getLast()) == 1) {
+                maximos.set(nivel, this.root.getContent());
+            }
+            if (this.root.getLeft() != null) {
+                this.root.getLeft().largestValueOfEachLevelRecursive(cmp, maximos, nivel + 1);
+            }
+            if (this.root.getRight() != null) {
+                this.root.getRight().largestValueOfEachLevelRecursive(cmp, maximos, nivel + 1);
+            }
+        }
+    }
+
+    public void largestValueOfEachLevelRecursive(Comparator<T> cmp) {
+        LinkedList<T> maximos = new LinkedList<>();
+        this.largestValueOfEachLevelRecursive(cmp, maximos, 0);
+        System.out.println(maximos);
+    }
+ */

@@ -53,4 +53,13 @@ class Edge<E, V> {
         this.weight = weight;
     }
 
+    @Override
+    public String toString() {
+        return " [ " + "source = " + source.getContent() + ", target = " + target.getContent() + ", data = " + data + ", weight = " + weight + '}';
+    }
+
+
+    
+    
+
 }

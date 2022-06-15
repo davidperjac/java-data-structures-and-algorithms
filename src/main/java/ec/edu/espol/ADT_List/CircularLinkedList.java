@@ -4,22 +4,6 @@ import java.util.Iterator;
 
 
 public class CircularLinkedList <E> implements List<E>{
-    
-    private CircularNodeList<E> last;
-
-    public CircularNodeList<E> getLast() {
-        return last;
-    }
-    
-    public CircularNodeList<E> getFirst() {
-        return last.getNext();
-    } 
-
-    public void setLast(CircularNodeList<E> last) {
-        this.last = last;
-    }
-    
-    
 
     @Override
     public boolean addFirst(E e) {
@@ -32,12 +16,17 @@ public class CircularLinkedList <E> implements List<E>{
     }
 
     @Override
-    public E removeFirst() {
+    public E getFirst() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public E removeLast() {
+    public E getLast() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int indexOf(E e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -47,22 +36,27 @@ public class CircularLinkedList <E> implements List<E>{
     }
 
     @Override
+    public boolean removeLast() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean removeFirst() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean insert(int index, E e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean set(int index, E e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void add(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public E remove(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -72,7 +66,12 @@ public class CircularLinkedList <E> implements List<E>{
     }
 
     @Override
-    public E set(int index, E element) {
+    public boolean contains(E e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean remove(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -80,5 +79,10 @@ public class CircularLinkedList <E> implements List<E>{
     public Iterator<E> iterator() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+
+    
+    
+
     
 }

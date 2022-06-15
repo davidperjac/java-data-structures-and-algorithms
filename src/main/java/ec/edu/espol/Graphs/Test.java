@@ -16,8 +16,16 @@ public class Test {
                 return n1.compareTo(n2);
             }
         };
-        //GRAPH
 
+        Comparator<String> cmp2 = new Comparator<String>() {
+            @Override
+            public int compare(String s1, String s2) {
+                return s1.compareTo(s2);
+            }
+        };
+
+        //GRAPH
+        /*
         GraphAM graph = new GraphAM(cmp1, false);
         graph.add(2);
         graph.add(5);
@@ -33,6 +41,31 @@ public class Test {
         graph.remove(12);
         System.out.println("\n");
         System.out.println(graph.printAdjMatrix());
+         */
+        //****************PRACTICA_EXAMEN*******************//
+        GraphAL graph = new GraphAL(cmp2, true);
+
+        graph.addVertex("A");
+        graph.addVertex("B");
+        graph.addVertex("C");
+        graph.addVertex("D");
+        graph.addVertex("E");
+        graph.addVertex("F");
+        graph.addVertex("G");
+
+        graph.connect("A", "B", "", 8);
+        graph.connect("A", "C", "", 2);
+        graph.connect("A", "F", "", 1);
+        graph.connect("A", "G", "", 1);
+        
+        graph.connect("B", "C", "", 3);
+        graph.connect("B", "D", "", 1);
+        
+        graph.connect("D", "E", "", 2);
+
+        graph.connect("F", "G", "", 4);
+
+        graph.printBFS("A");
 
     }
 

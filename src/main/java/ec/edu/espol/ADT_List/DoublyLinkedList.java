@@ -24,9 +24,6 @@ public class DoublyLinkedList<E> implements List<E>{
         this.header = header;
     }
 
-    public DoublyNodeList<E> getLast() {
-        return last;
-    }
 
     public void setLast(DoublyNodeList<E> last) {
         this.last = last;
@@ -79,15 +76,7 @@ public class DoublyLinkedList<E> implements List<E>{
         
     }
 
-    @Override
-    public E removeFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public E removeLast() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public int size() {
@@ -100,17 +89,37 @@ public class DoublyLinkedList<E> implements List<E>{
     }
 
     @Override
-    public void clear() {
+    public E getFirst() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void add(int index, E element) {
+    public E getLast() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public E remove(int index) {
+    public int indexOf(E e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean removeLast() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean removeFirst() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean insert(int index, E e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean set(int index, E e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -120,7 +129,12 @@ public class DoublyLinkedList<E> implements List<E>{
     }
 
     @Override
-    public E set(int index, E element) {
+    public boolean contains(E e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean remove(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -128,6 +142,9 @@ public class DoublyLinkedList<E> implements List<E>{
     public Iterator<E> iterator() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    
+
     
     
 }
