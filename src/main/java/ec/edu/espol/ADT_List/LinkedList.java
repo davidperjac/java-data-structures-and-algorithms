@@ -79,7 +79,7 @@ public class LinkedList<E> implements List<E> {
         int index = 0;
 
         for (NodeList<E> n = header; n != null; n = n.getNext()) {
-            if (n.equals(e)) {
+            if (n.getContent().equals(e)) {
                 return index;
             }
             index++;
@@ -140,8 +140,12 @@ public class LinkedList<E> implements List<E> {
 
         int contador = 0;
         for (NodeList<E> n = header; n != null; n = n.getNext()) {
-            if (index == contador) {
-
+            if (index == contador + 1) {
+                NodeList<E> previousNext = n.getNext();
+                NodeList<E> newNode = new NodeList(e);
+                n.setNext(newNode);
+                newNode.setNext(previousNext);
+                return true;
             }
             contador++;
         }
@@ -150,7 +154,25 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public boolean set(int index, E e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (e == null) {
+            return false;
+        }
+        if (index > size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        int contador = 0;
+        for (NodeList<E> n = header; n != null; n = n.getNext()) {
+            if (index == contador + 1) {
+                NodeList<E> previousNext = n.getNext().getNext();
+                NodeList<E> newNode = new NodeList(e);
+                n.setNext(newNode);
+                newNode.setNext(previousNext);
+                return true;
+            }
+            contador++;
+        }
+        return false;
     }
 
     @Override
@@ -160,17 +182,46 @@ public class LinkedList<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (index > size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        int contador = 0;
+        for (NodeList<E> n = header; n != null; n = n.getNext()) {
+            if (index == contador) {
+                return n.getContent();
+            }
+            contador++;
+        }
+        return null;
     }
 
     @Override
     public boolean contains(E e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (NodeList<E> n = header; n != null; n = n.getNext()) {
+            if (n.getContent().equals(e)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean remove(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (index > size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        int contador = 0;
+        for (NodeList<E> n = header; n != null; n = n.getNext()) {
+            if (index == contador + 1) {
+                NodeList<E> previousNext = n.getNext().getNext();
+                n.setNext(previousNext);
+                return true;
+            }
+            contador++;
+        }
+        return false;
     }
 
     @Override
