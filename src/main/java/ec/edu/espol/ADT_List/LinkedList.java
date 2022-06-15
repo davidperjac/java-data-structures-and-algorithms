@@ -26,27 +26,17 @@ public class LinkedList<E> implements List<E> {
         this.last = last;
     }
 
-    public List<E> findIntersection(List<E> other) {
-        Iterator<E> iterator = this.iterator();
-        List<E> intersection = new LinkedList<E>();
-
-        while (iterator.hasNext()) {
-            E next = iterator.next();
-            Iterator<E> iteratorOther = other.iterator();
-            while (iteratorOther.hasNext()) {
-                E nextO = iteratorOther.next();
-                if (next.equals(nextO)) {
-                    intersection.addFirst(next);
-                }
-            }
-        }
-        return intersection;
-    }
-
     @Override
     public boolean addFirst(E e) {
         if (e != null) {
             NodeList<E> newNode = new NodeList<>(e);
+
+            if (isEmpty()) {
+                this.setHeader(newNode);
+                this.setLast(newNode);
+                return true;
+            }
+
             newNode.setNext(header);
             this.setHeader(newNode);
             return true;
@@ -55,44 +45,48 @@ public class LinkedList<E> implements List<E> {
         }
     }
 
-    private void recorrerHaciaAtras() {
-        NodeList<E> n;
-        for (n = last; n != header; n = this.getPrevious(n)) {
-
-        }
-    }
-
-    NodeList<E> getPrevious(NodeList<E> node) {
-        NodeList<E> previous = null;
-        NodeList<E> n;
-        for (n = header; n != node; n = n.getNext()) {
-            previous = n;
-        }
-        return previous;
-    }
-
     @Override
     public boolean addLast(E e) {
         if (e != null) {
             NodeList<E> newNode = new NodeList<>(e);
-            if (header == null) {
+
+            if (isEmpty()) {
                 this.setHeader(newNode);
+                this.setLast(newNode);
                 return true;
             }
-            if (last == null) {
-                this.setLast(newNode);
-                this.header.setNext(last);
-            }
-            
+
             this.last.setNext(newNode);
-            newNode.setNext(null);
             this.setLast(newNode);
             return true;
         } else {
             return false;
         }
     }
-   
+
+    @Override
+    public E getFirst() {
+        return header.getContent();
+    }
+
+    @Override
+    public E getLast() {
+        return last.getContent();
+    }
+
+    @Override
+    public int indexOf(E e) {
+        int index = 0;
+
+        for (NodeList<E> n = header; n != null; n = n.getNext()) {
+            if (n.equals(e)) {
+                return index;
+            }
+            index++;
+        }
+
+        return -1;
+    }
 
     @Override
     public int size() {
@@ -105,7 +99,58 @@ public class LinkedList<E> implements List<E> {
             size++;
         }
         return size;
+    }
 
+    @Override
+    public boolean removeLast() {
+        if (isEmpty()) {
+            return false;
+        } else {
+            for (NodeList<E> n = header; n != null; n = n.getNext()) {
+                if (n.getNext().equals(last)) {
+                    n.setNext(null);
+                    this.setLast(n);
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public boolean removeFirst() {
+        if (isEmpty()) {
+            return false;
+        } else {
+            NodeList<E> newFirst = header.getNext();
+            this.header.setNext(null);
+            this.setHeader(newFirst);
+            return true;
+        }
+    }
+
+    @Override
+    public boolean insert(int index, E e) {
+        if (e == null) {
+            return false;
+        }
+        if (index > size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        int contador = 0;
+        for (NodeList<E> n = header; n != null; n = n.getNext()) {
+            if (index == contador) {
+
+            }
+            contador++;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean set(int index, E e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -113,7 +158,20 @@ public class LinkedList<E> implements List<E> {
         return header == null && last == null;
     }
 
+    @Override
+    public E get(int index) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
+    @Override
+    public boolean contains(E e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean remove(int index) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     @Override
     public String toString() {
@@ -121,81 +179,15 @@ public class LinkedList<E> implements List<E> {
         for (NodeList<E> n = header; n != null; n = n.getNext()) {
             s += n.getContent();
             if (n != last) {
-                 s+= ",";
+                s += ",";
             }
         }
-        s+="]";
+        s += "]";
         return s;
     }
 
     @Override
     public Iterator<E> iterator() {
-        Iterator<E> it = new Iterator<E>() {
-            NodeList<E> cursor = header;
-
-            @Override
-            public boolean hasNext() {
-                return cursor != null;
-            }
-
-            @Override
-            public E next() {
-                E content = header.getContent();
-                cursor = cursor.getNext();
-                
-                return content;
-            }
-        };
-        return it;
-    }
-
-    @Override
-    public E getFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public E getLast() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int indexOf(E e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean removeLast() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean removeFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean insert(int index, E e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean set(int index, E e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public E get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean contains(E e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean remove(int index) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
